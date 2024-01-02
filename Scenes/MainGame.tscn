@@ -1,0 +1,103 @@
+[gd_scene load_steps=8 format=3 uid="uid://dq6wn3hjc1qil"]
+
+[ext_resource type="PackedScene" uid="uid://b4bb4wor5jpfn" path="res://Scenes/Player/Player.tscn" id="1_6jnfy"]
+[ext_resource type="PackedScene" uid="uid://du0uendusfhsj" path="res://Scenes/Enemies/Enemy.tscn" id="2_8c03h"]
+[ext_resource type="Texture2D" uid="uid://bmy26fug1mebd" path="res://Arts/Sprites/background/background.png" id="2_xn5ni"]
+[ext_resource type="Script" path="res://Scripts/Managers/MonsterManager.cs" id="3_5ixwi"]
+[ext_resource type="Script" path="res://Scripts/Managers/ScorePoint.cs" id="3_lil32"]
+[ext_resource type="PackedScene" uid="uid://blfy3r1mmk1qv" path="res://Scenes/Enemies/Enemy2.tscn" id="5_ubbbx"]
+
+[sub_resource type="Curve2D" id="Curve2D_3jwbw"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 296, 0, 0, 0, 0, 0, 1040, 0)
+}
+point_count = 2
+
+[node name="MainGame" type="Node"]
+
+[node name="MainCamera" type="Camera2D" parent="."]
+anchor_mode = 0
+editor_draw_limits = true
+
+[node name="Player" parent="." instance=ExtResource("1_6jnfy")]
+position = Vector2(649, 640)
+
+[node name="Background" type="Sprite2D" parent="."]
+z_index = -1
+position = Vector2(640, 360)
+texture = ExtResource("2_xn5ni")
+
+[node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("scoreNumber")]
+script = ExtResource("3_lil32")
+scoreNumber = NodePath("PanelContainer/MarginContainer/GridContainer/ScoreNumber")
+
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer"]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -45.0
+offset_right = 45.0
+offset_bottom = 38.0
+grow_horizontal = 2
+size_flags_horizontal = 4
+size_flags_vertical = 0
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/PanelContainer"]
+layout_mode = 2
+size_flags_horizontal = 0
+theme_override_constants/margin_left = 5
+theme_override_constants/margin_top = 5
+theme_override_constants/margin_right = 5
+theme_override_constants/margin_bottom = 5
+
+[node name="GridContainer" type="GridContainer" parent="CanvasLayer/PanelContainer/MarginContainer"]
+layout_mode = 2
+columns = 2
+
+[node name="ScoreText" type="Label" parent="CanvasLayer/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "Score: "
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="ScoreNumber" type="Label" parent="CanvasLayer/PanelContainer/MarginContainer/GridContainer"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 20
+text = "0"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer"]
+visible = false
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="Label" type="Label" parent="CanvasLayer/PanelContainer2"]
+layout_mode = 2
+theme_override_font_sizes/font_size = 50
+text = "GAME OVER"
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[node name="MonsterManager" type="Node" parent="."]
+script = ExtResource("3_5ixwi")
+Enemies = Array[PackedScene]([ExtResource("2_8c03h"), ExtResource("5_ubbbx")])
+
+[node name="Path2D" type="Path2D" parent="MonsterManager"]
+curve = SubResource("Curve2D_3jwbw")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="MonsterManager/Path2D"]
+position = Vector2(296, 0)
+
+[node name="MonsterSpawnTimer" type="Timer" parent="MonsterManager"]
+wait_time = 0.5
+autostart = true
+
+[connection signal="tree_exiting" from="Player" to="CanvasLayer" method="OnPlayerDeath"]
+[connection signal="tree_exiting" from="Player" to="MonsterManager" method="OnPlayerDeath"]
+[connection signal="EnemyDeath" from="MonsterManager" to="CanvasLayer" method="OnEnemyDeath"]
+[connection signal="timeout" from="MonsterManager/MonsterSpawnTimer" to="MonsterManager" method="OnTimeOut"]

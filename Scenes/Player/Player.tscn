@@ -1,0 +1,53 @@
+[gd_scene load_steps=6 format=3 uid="uid://b4bb4wor5jpfn"]
+
+[ext_resource type="Script" path="res://Scripts/Player/MovementPlayer.cs" id="1_sviqx"]
+[ext_resource type="Material" uid="uid://semwre4m6mng" path="res://Arts/Particles/WheelDust.tres" id="3_3xt2s"]
+[ext_resource type="SpriteFrames" uid="uid://chc6lyfh0xt1t" path="res://Arts/Sprites/Player/player_sprite_frames.tres" id="4_0bo4b"]
+[ext_resource type="AudioStream" uid="uid://5ic7ri1l0au0" path="res://Sounds/SFX/explode-5.wav" id="4_k7i6n"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_p24tf"]
+size = Vector2(80, 107)
+
+[node name="Player" type="Node2D"]
+z_index = 2
+script = ExtResource("1_sviqx")
+
+[node name="Area2D" type="Area2D" parent="."]
+disable_mode = 1
+collision_mask = 6
+input_pickable = false
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+position = Vector2(0, -0.5)
+shape = SubResource("RectangleShape2D_p24tf")
+
+[node name="TopRightWheel" type="GPUParticles2D" parent="."]
+z_index = 1
+position = Vector2(35, -38)
+rotation = 0.436332
+amount = 40
+process_material = ExtResource("3_3xt2s")
+lifetime = 2.0
+preprocess = 5.0
+randomness = 0.5
+fract_delta = false
+
+[node name="TopLeftWheel" type="GPUParticles2D" parent="."]
+z_index = 1
+position = Vector2(-35, -38)
+rotation = 2.61799
+amount = 40
+process_material = ExtResource("3_3xt2s")
+lifetime = 2.0
+preprocess = 5.0
+randomness = 0.5
+
+[node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="."]
+sprite_frames = ExtResource("4_0bo4b")
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("4_k7i6n")
+mix_target = 2
+
+[connection signal="area_entered" from="Area2D" to="." method="OnArea2DEntered"]
+[connection signal="animation_finished" from="AnimatedSprite2D" to="." method="OnExplosionEnd"]
