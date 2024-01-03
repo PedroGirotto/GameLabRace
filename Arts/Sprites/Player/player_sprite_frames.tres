@@ -1,7 +1,8 @@
-[gd_resource type="SpriteFrames" load_steps=57 format=3 uid="uid://chc6lyfh0xt1t"]
+[gd_resource type="SpriteFrames" load_steps=58 format=3 uid="uid://chc6lyfh0xt1t"]
 
 [ext_resource type="Texture2D" uid="uid://bj11lhmm6yf5w" path="res://Arts/Sprites/Player/player_car.png" id="1_n54i1"]
 [ext_resource type="Texture2D" uid="uid://ddmf3exgjl2ur" path="res://Arts/VFX/fire_explosion_256x256px.png" id="2_jb57e"]
+[ext_resource type="Texture2D" uid="uid://uljqygllwr7a" path="res://Arts/Sprites/Player/car_yellow_5.png" id="2_tvup1"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_01do6"]
 atlas = ExtResource("2_jb57e")
@@ -224,6 +225,9 @@ animations = [{
 "frames": [{
 "duration": 1.0,
 "texture": ExtResource("1_n54i1")
+}, {
+"duration": 1.0,
+"texture": ExtResource("2_tvup1")
 }],
 "loop": false,
 "name": &"default",

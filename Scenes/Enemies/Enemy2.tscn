@@ -1,11 +1,11 @@
 [gd_scene load_steps=5 format=3 uid="uid://blfy3r1mmk1qv"]
 
 [ext_resource type="Script" path="res://Scripts/Enemy/MovementEnemy2.cs" id="1_vg3d1"]
-[ext_resource type="Texture2D" uid="uid://fuuey1ufqdig" path="res://Arts/Sprites/Enemy/enemy_car2.png" id="2_owrc7"]
+[ext_resource type="Texture2D" uid="uid://lle5phi14mui" path="res://Arts/Sprites/Enemy/car_blue_enemy_2.png" id="2_tb03x"]
 [ext_resource type="AudioStream" uid="uid://c1vt0yh37ts76" path="res://Sounds/SFX/gun-3.wav" id="3_dmsxv"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_jhw0v"]
-size = Vector2(79, 102)
+size = Vector2(60, 102)
 
 [node name="Enemy2" type="Node2D"]
 z_index = 2
@@ -15,7 +15,8 @@ MaximumAmplitude = 15
 metadata/_edit_group_ = true
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
-texture = ExtResource("2_owrc7")
+texture = ExtResource("2_tb03x")
+flip_v = true
 
 [node name="Area2D" type="Area2D" parent="."]
 z_index = 1
@@ -23,18 +24,18 @@ collision_layer = 2
 collision_mask = 7
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
-position = Vector2(0.5, 0)
 shape = SubResource("RectangleShape2D_jhw0v")
 
 [node name="VisibleOnScreenNotifier2D" type="VisibleOnScreenNotifier2D" parent="."]
-position = Vector2(0, 0.75)
-scale = Vector2(1, 22.1)
+position = Vector2(0, -5.50001)
+scale = Vector2(1, 24.6)
 rect = Rect2(-2.5, -2.5, 5, 5)
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("3_dmsxv")
 volume_db = -10.0
 mix_target = 2
+bus = &"SFX"
 
 [connection signal="area_entered" from="Area2D" to="." method="OnArea2DEntered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="OnScreenExited"]

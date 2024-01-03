@@ -1,4 +1,4 @@
-[gd_scene load_steps=8 format=3 uid="uid://dq6wn3hjc1qil"]
+[gd_scene load_steps=9 format=3 uid="uid://dq6wn3hjc1qil"]
 
 [ext_resource type="PackedScene" uid="uid://b4bb4wor5jpfn" path="res://Scenes/Player/Player.tscn" id="1_6jnfy"]
 [ext_resource type="PackedScene" uid="uid://du0uendusfhsj" path="res://Scenes/Enemies/Enemy.tscn" id="2_8c03h"]
@@ -6,6 +6,7 @@
 [ext_resource type="Script" path="res://Scripts/Managers/MonsterManager.cs" id="3_5ixwi"]
 [ext_resource type="Script" path="res://Scripts/Managers/ScorePoint.cs" id="3_lil32"]
 [ext_resource type="PackedScene" uid="uid://blfy3r1mmk1qv" path="res://Scenes/Enemies/Enemy2.tscn" id="5_ubbbx"]
+[ext_resource type="AudioStream" uid="uid://bdkbpw4pese5k" path="res://Sounds/Music/Retro Beat.ogg" id="7_prb81"]
 
 [sub_resource type="Curve2D" id="Curve2D_3jwbw"]
 _data = {
@@ -96,6 +97,12 @@ position = Vector2(296, 0)
 [node name="MonsterSpawnTimer" type="Timer" parent="MonsterManager"]
 wait_time = 0.5
 autostart = true
+
+[node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
+stream = ExtResource("7_prb81")
+autoplay = true
+mix_target = 2
+bus = &"Music"
 
 [connection signal="tree_exiting" from="Player" to="CanvasLayer" method="OnPlayerDeath"]
 [connection signal="tree_exiting" from="Player" to="MonsterManager" method="OnPlayerDeath"]
