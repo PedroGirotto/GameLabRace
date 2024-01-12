@@ -53,7 +53,7 @@ public partial class MovementPlayer : Node2D{
 
 		Position += Velocity * (float) delta;
 		Position = new Vector2(
-			x: Mathf.Clamp(Position.X, 0 + XSpriteSize/2, ScreenSize.X - XSpriteSize/2),
+			x: Mathf.Clamp(Position.X, ScreenSize.X*0.18f + XSpriteSize/2, ScreenSize.X*0.85f - XSpriteSize/2),
 			y: Position.Y
 		);
 	}

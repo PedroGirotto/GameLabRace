@@ -1,12 +1,20 @@
-[gd_scene load_steps=9 format=3 uid="uid://dq6wn3hjc1qil"]
+[gd_scene load_steps=12 format=3 uid="uid://dq6wn3hjc1qil"]
 
 [ext_resource type="PackedScene" uid="uid://b4bb4wor5jpfn" path="res://Scenes/Player/Player.tscn" id="1_6jnfy"]
 [ext_resource type="PackedScene" uid="uid://du0uendusfhsj" path="res://Scenes/Enemies/Enemy.tscn" id="2_8c03h"]
+[ext_resource type="Shader" path="res://Arts/Sprites/background/background_loop.gdshader" id="2_ekrd2"]
 [ext_resource type="Texture2D" uid="uid://bmy26fug1mebd" path="res://Arts/Sprites/background/background.png" id="2_xn5ni"]
 [ext_resource type="Script" path="res://Scripts/Managers/MonsterManager.cs" id="3_5ixwi"]
 [ext_resource type="Script" path="res://Scripts/Managers/ScorePoint.cs" id="3_lil32"]
+[ext_resource type="Script" path="res://Scenes/UI/VoltarButton.cs" id="4_ius5l"]
 [ext_resource type="PackedScene" uid="uid://blfy3r1mmk1qv" path="res://Scenes/Enemies/Enemy2.tscn" id="5_ubbbx"]
 [ext_resource type="AudioStream" uid="uid://bdkbpw4pese5k" path="res://Sounds/Music/Retro Beat.ogg" id="7_prb81"]
+
+[sub_resource type="ShaderMaterial" id="ShaderMaterial_8h7ac"]
+shader = ExtResource("2_ekrd2")
+shader_parameter/motion = Vector2(0, -400)
+shader_parameter/scale = 1.0
+shader_parameter/offset = Vector2(0, 0)
 
 [sub_resource type="Curve2D" id="Curve2D_3jwbw"]
 _data = {
@@ -25,8 +33,10 @@ position = Vector2(649, 640)
 
 [node name="Background" type="Sprite2D" parent="."]
 z_index = -1
-position = Vector2(640, 360)
+texture_repeat = 2
+material = SubResource("ShaderMaterial_8h7ac")
 texture = ExtResource("2_xn5ni")
+centered = false
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." node_paths=PackedStringArray("scoreNumber")]
 script = ExtResource("3_lil32")
@@ -71,18 +81,33 @@ vertical_alignment = 1
 
 [node name="PanelContainer2" type="PanelContainer" parent="CanvasLayer"]
 visible = false
+modulate = Color(0.988235, 0.984314, 0.988235, 1)
+self_modulate = Color(0.909804, 0.419608, 0.568627, 1)
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="Label" type="Label" parent="CanvasLayer/PanelContainer2"]
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer2"]
+layout_mode = 2
+alignment = 1
+
+[node name="Label" type="Label" parent="CanvasLayer/PanelContainer2/VBoxContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 50
 text = "GAME OVER"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="Button" type="Button" parent="CanvasLayer/PanelContainer2/VBoxContainer"]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 8
+theme_override_font_sizes/font_size = 25
+text = "Voltar
+"
+script = ExtResource("4_ius5l")
 
 [node name="MonsterManager" type="Node" parent="."]
 script = ExtResource("3_5ixwi")
@@ -102,7 +127,6 @@ autostart = true
 stream = ExtResource("7_prb81")
 autoplay = true
 mix_target = 2
-bus = &"Music"
 
 [connection signal="tree_exiting" from="Player" to="CanvasLayer" method="OnPlayerDeath"]
 [connection signal="tree_exiting" from="Player" to="MonsterManager" method="OnPlayerDeath"]

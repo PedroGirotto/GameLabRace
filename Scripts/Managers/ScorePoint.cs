@@ -4,7 +4,9 @@ using System;
 public partial class ScorePoint : CanvasLayer{
 	[Export]
 	public Label scoreNumber;
-	
+
+
+
 	public int score;
 	
 

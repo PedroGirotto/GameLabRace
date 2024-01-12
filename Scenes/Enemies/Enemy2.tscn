@@ -35,7 +35,6 @@ rect = Rect2(-2.5, -2.5, 5, 5)
 stream = ExtResource("3_dmsxv")
 volume_db = -10.0
 mix_target = 2
-bus = &"SFX"
 
 [connection signal="area_entered" from="Area2D" to="." method="OnArea2DEntered"]
 [connection signal="screen_exited" from="VisibleOnScreenNotifier2D" to="." method="OnScreenExited"]

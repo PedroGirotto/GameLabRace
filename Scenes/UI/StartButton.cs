@@ -2,8 +2,8 @@ using Godot;
 using System;
 
 public partial class StartButton : Button{
-	[Export]
-	public PackedScene mainGame;
+	//[Export]
+	//public PackedScene mainGame;
 
 
 
@@ -15,6 +15,6 @@ public partial class StartButton : Button{
 
 
 	public void OnStartButtonPressed(){
-		GetTree().ChangeSceneToPacked(mainGame);
+		GetTree().ChangeSceneToFile("res://Scenes/MainGame.tscn");
 	}
 }

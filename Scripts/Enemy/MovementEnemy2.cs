@@ -24,6 +24,8 @@ public partial class MovementEnemy2 : Node2D{
 
 	public override void _Ready(){
 		audioEffect = GetNode<AudioStreamPlayer>("AudioStreamPlayer");
+		audioEffect.PitchScale = (float) (1 + GD.Randf() - 0.5*GD.Randf());
+		
 		speed = GD.RandRange(MinimumSpeed, MaximumSpeed);
 		amplitude = GD.RandRange(MinimumAmplitude, MaximumAmplitude);
 
