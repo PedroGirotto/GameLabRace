@@ -1,7 +1,8 @@
-[gd_scene load_steps=5 format=3 uid="uid://cpus0qgqtep4c"]
+[gd_scene load_steps=6 format=3 uid="uid://cpus0qgqtep4c"]
 
 [ext_resource type="Texture2D" uid="uid://c08vlwlmklvnp" path="res://Arts/Sprites/background/MemeLogo.png" id="1_kg4r3"]
 [ext_resource type="Script" path="res://Scenes/UI/StartButton.cs" id="2_hvfil"]
+[ext_resource type="Script" path="res://Scenes/UI/CreditButton.cs" id="3_8478t"]
 [ext_resource type="Script" path="res://Scenes/UI/QuitButton.cs" id="4_62fxl"]
 [ext_resource type="AudioStream" uid="uid://bxmadjd3ar35t" path="res://Sounds/Music/Retro Comedy.ogg" id="5_fyqvl"]
 
@@ -34,11 +35,45 @@ layout_mode = 2
 theme_override_constants/margin_top = 5
 theme_override_constants/margin_bottom = 10
 
-[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer"]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer"]
+layout_direction = 1
+layout_mode = 2
+size_flags_horizontal = 4
+auto_translate = false
+alignment = 1
+
+[node name="TextEdit" type="TextEdit" parent="CanvasLayer/PanelContainer/MarginContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(500, 100)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_constants/line_spacing = 10
+theme_override_font_sizes/font_size = 40
+text = "
+
+
+- Programador e Design: Pedro Girotto
+
+- Background: Pedro Girotto
+
+- Background menu: João Cardoso"
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+wrap_mode = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="CanvasLayer/PanelContainer/MarginContainer/HBoxContainer"]
+layout_direction = 1
 layout_mode = 2
 alignment = 2
 
-[node name="Button" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Button" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -47,15 +82,18 @@ text = "Start"
 icon_alignment = 1
 script = ExtResource("2_hvfil")
 
-[node name="Button2" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Button2" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer" node_paths=PackedStringArray("creditoEsquerdo", "creditoDireito")]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_font_sizes/font_size = 40
 text = "Credit"
 icon_alignment = 1
+script = ExtResource("3_8478t")
+creditoEsquerdo = NodePath("../../TextEdit")
+creditoDireito = NodePath("../../TextEdit2")
 
-[node name="Button3" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/VBoxContainer"]
+[node name="Button3" type="Button" parent="CanvasLayer/PanelContainer/MarginContainer/HBoxContainer/VBoxContainer"]
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -63,6 +101,31 @@ theme_override_font_sizes/font_size = 40
 text = "Exit"
 icon_alignment = 1
 script = ExtResource("4_62fxl")
+
+[node name="TextEdit2" type="TextEdit" parent="CanvasLayer/PanelContainer/MarginContainer/HBoxContainer"]
+visible = false
+custom_minimum_size = Vector2(500, 50)
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_font_sizes/font_size = 40
+text = "
+
+
+- Explosion SFX: like, a hundred bears
+
+- Music: Beep Yeah
+
+- Car sprite: Kenney
+"
+editable = false
+context_menu_enabled = false
+shortcut_keys_enabled = false
+selecting_enabled = false
+deselect_on_focus_loss_enabled = false
+drag_and_drop_selection_enabled = false
+virtual_keyboard_enabled = false
+middle_mouse_paste_enabled = false
+wrap_mode = 1
 
 [node name="AudioStreamPlayer" type="AudioStreamPlayer" parent="."]
 stream = ExtResource("5_fyqvl")

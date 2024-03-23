@@ -74,3 +74,7 @@ move_right={
 2d_physics/layer_1="player"
 2d_physics/layer_2="enemies"
 2d_physics/layer_3="bg_objects"
+
+[navigation]
+
+avoidance/thread_model/avoidance_use_high_priority_threads=false
